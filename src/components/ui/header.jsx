@@ -6,7 +6,7 @@ import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 
 function ElevationScroll(props) {
     const { children } = props;
-    
+
     const trigger = useScrollTrigger({
       disableHysteresis: true,
       threshold: 0
@@ -21,7 +21,7 @@ function ElevationScroll(props) {
 export default function Header(props) {
     return(
         <ElevationScroll>
-            <AppBar>
+            <AppBar color='primary'>
                 <Toolbar>Header</Toolbar>
             </AppBar>
         </ElevationScroll>
