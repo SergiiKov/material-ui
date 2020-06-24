@@ -73,10 +73,18 @@ export default function Header(props) {
   const [value, setValue] = useState(0);
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [open, setOpen] = useState(false);
+  const [selectedIndex, setSelectedIndex] = useState(0);
   
   const handleChange = (e, value) => {
     setValue(value)
   };
+
+const handleMenuIteClick = (e, i) =>{
+  setAnchorEl(null)
+  setOpen(false)
+  setSelectedIndex(i)
+}
+
   const handleClick = (e) => {
     setAnchorEl(e.currentTarget)
     setOpen(true)
@@ -85,6 +93,11 @@ export default function Header(props) {
     setAnchorEl(null)
     setOpen(false)
   }
+
+ const menuOptions = [{name:'Services', link:'/services'}, 
+ {name:'Custom Software Development', link:'/customsoftware'}, 
+ {name:'Custom Mobile Development', link:'/mobileapps'}, 
+ {name:'Custom WebSite Development', link:'/websites'} ]
 
   useEffect(()=>{
     if (window.location.pathname === '/' && value !== 0 ) {
@@ -130,10 +143,17 @@ export default function Header(props) {
                           classes={{paper: classes.menu}}
                           elevation={0}
                           >
-                      <MenuItem classes={{root:classes.menuItem}} onClick={()=>{handleClose(); setValue(1)}} component={Link} to='/services'>Services</MenuItem>
-                      <MenuItem classes={{root:classes.menuItem}} onClick={()=>{handleClose(); setValue(1)}} component={Link} to='/customsoftware'>Custom Software Development</MenuItem>
-                      <MenuItem classes={{root:classes.menuItem}} onClick={()=>{handleClose(); setValue(1)}} component={Link} to='/mobileapps'>Custom Mobile Development</MenuItem>
-                      <MenuItem classes={{root:classes.menuItem}} onClick={()=>{handleClose(); setValue(1)}} component={Link} to='/websites'>Custom WebSite Development</MenuItem>
+                            {menuOptions.map((option, i)=>(
+                              <MenuItem key={option} component={Link} to={option.link} 
+                                classes={{root: classes.menuItem}}
+                                onClick={(event)=>{ handleMenuIteClick(event, i); 
+                                                    setValue(1);
+                                                    handleClose()}}
+                                selected={i===selectedIndex && value === 1}
+                              >
+                                {option.name}
+                              </MenuItem>
+                            ))}
                     </Menu>
                 </Toolbar>
             </AppBar>
