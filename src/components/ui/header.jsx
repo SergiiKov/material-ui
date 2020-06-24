@@ -9,6 +9,7 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 
 import logo from '../../assets/logo.svg';
+import { useState } from 'react';
 
 function ElevationScroll(props) {
     const { children } = props;
@@ -49,13 +50,18 @@ const useStyles = makeStyles(theme => ({
 
 export default function Header(props) {
   const classes = useStyles();
+  const [value, setValue] = useState(0);
+  const handleChange = (e, value) => {
+    setValue(value)
+  };
+
     return(
       <React.Fragment>
         <ElevationScroll>
             <AppBar color='primary'>
                 <Toolbar disableGutters>
                   <img src={logo} alt='company logo' className={classes.logo} />
-                  <Tabs className={classes.tabContainer}>
+                  <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
                     <Tab className={classes.tab} label='Home' />
                     <Tab className={classes.tab} label='Services' />
                     <Tab className={classes.tab} label='The Revolutions' />
