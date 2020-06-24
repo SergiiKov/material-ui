@@ -9,6 +9,8 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
 
 import logo from '../../assets/logo.svg';
 
@@ -58,9 +60,20 @@ const useStyles = makeStyles(theme => ({
 export default function Header(props) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = useState(false);
+  
   const handleChange = (e, value) => {
     setValue(value)
   };
+  const handleClick = (e) => {
+    setAnchorEl(e.currentTarget)
+    setOpen(true)
+  }
+  const handleClose = (e) =>{
+    setAnchorEl(null)
+    setOpen(false)
+  }
 
   useEffect(()=>{
     if (window.location.pathname === '/' && value !== 0 ) {
@@ -86,12 +99,28 @@ export default function Header(props) {
                   </Button>
                   <Tabs value={value} onChange={handleChange} className={classes.tabContainer}>
                     <Tab className={classes.tab} component={Link} to='/' label='Home' />
-                    <Tab className={classes.tab} component={Link} to='/services' label='Services' />
+                    <Tab aria-owns={anchorEl ? 'simple-menu' : undefined}
+                         aria-haspopup={anchorEl ? 'true' : undefined} 
+                         className={classes.tab} 
+                         component={Link} to='/services' 
+                         onMouseOver={(event)=>handleClick(event)}
+                         label='Services' 
+                    />
                     <Tab className={classes.tab} component={Link} to='/theRevolutions' label='The Revolutions' />
                     <Tab className={classes.tab} component={Link} to='/aboutUs' label='About Us' />
                     <Tab className={classes.tab} component={Link} to='/contactUs' label='Contact Us' />
                   </Tabs>
                     <Button variant="contained" color="secondary" className={classes.button}>Free download</Button>
+                    <Menu id='simple-menu' 
+                          anchorEl={anchorEl} 
+                          open={open} 
+                          onClose={handleClose}
+                          MenuListProps={{onMouseLeave:handleClose}}
+                          >
+                      <MenuItem onClick={handleClose}>Custom Software Development</MenuItem>
+                      <MenuItem onClick={handleClose}>Custom Mobile Development</MenuItem>
+                      <MenuItem onClick={handleClose}>Custom WebSite Development</MenuItem>
+                    </Menu>
                 </Toolbar>
             </AppBar>
         </ElevationScroll>
