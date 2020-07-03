@@ -88,7 +88,7 @@ const useStyles = makeStyles((theme) => ({
                         <img src={phoneIcon} alt='phone' />
                     </Grid>
                     <Grid item>
-                       <Typography variant='body1'>2323232 34234 23</Typography>
+                       <Typography variant='body1'><a href='tel:2323232 34234 23'>2323232 34234 23</a></Typography>
                     </Grid>
                 </Grid>
                 <Grid item container>
@@ -96,7 +96,7 @@ const useStyles = makeStyles((theme) => ({
                     <img src={emailIcon} alt='email' />
                     </Grid>
                     <Grid item>
-                       <Typography variant='body1'>@mail12345</Typography>
+                       <Typography variant='body1'><a href='mailto:mail12345'>@mail12345</a></Typography>
                     </Grid>
                 </Grid>
                 <Grid item container>
@@ -117,7 +117,9 @@ const useStyles = makeStyles((theme) => ({
                 <Grid item>
                 <TextField multiline rows={5} id='message' value={message} onChange={(event)=> setMessage(event.target.value)} />
                <Grid>
-                   <Button variant='contained'>Send Message</Button>
+                   <Button 
+                   variant='contained'
+                   disabled={name.length===0 || message.length===0 || phoneHelper.length !==0 || emailHelper.length !==0 }>Send Message</Button>
                </Grid>
                 </Grid>
             </Grid>
