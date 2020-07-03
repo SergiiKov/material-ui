@@ -6,6 +6,8 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import background from '../../assets/background.jpg';
+import phoneIcon from '../../assets/phone.svg';
+import emailIcon from '../../assets/email.svg';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -32,11 +34,26 @@ const useStyles = makeStyles((theme) => ({
   
     return (
         <Grid container direction='row'>
-            <Grid item container direction='column' lg={3}>
+            <Grid item container direction='column' justify='center' lg={3}>
                 <Grid item>
                     <Typography variant='h2'>Contact US</Typography>
-                    <Typography variant='body1'>Contact US</Typography>
-                    
+                    <Typography variant='body1'>Contact US</Typography> 
+                </Grid>
+                <Grid item container>
+                    <Grid item>
+                        <img src={phoneIcon} alt='phone' />
+                    </Grid>
+                    <Grid item>
+                       <Typography variant='body1'>2323232 34234 23</Typography>
+                    </Grid>
+                </Grid>
+                <Grid item container>
+                    <Grid item>
+                    <img src={emailIcon} alt='email' />
+                    </Grid>
+                    <Grid item>
+                       <Typography variant='body1'>@mail12345</Typography>
+                    </Grid>
                 </Grid>
                 
             </Grid>
