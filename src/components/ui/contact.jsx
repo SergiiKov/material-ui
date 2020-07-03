@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
@@ -31,6 +31,11 @@ const useStyles = makeStyles((theme) => ({
   export default function Contact() {
     const classes = useStyles();
     const theme= useTheme(); 
+
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [message,setMessage] = useState('');
   
     return (
         <Grid container direction='row'>
@@ -55,7 +60,23 @@ const useStyles = makeStyles((theme) => ({
                        <Typography variant='body1'>@mail12345</Typography>
                     </Grid>
                 </Grid>
-                
+                <Grid item container>
+                    <Grid item>
+                        <TextField label='Name' id='name' value={name} onChange={(event)=> setName(event.target.value)} />
+                    </Grid>
+                    <Grid item>
+                    <TextField label='Email' id='email' value={email} onChange={(event)=> setEmail(event.target.value)} />
+                    </Grid>
+                    <Grid item>
+                    <TextField label='Phone' id='phone' value={phone} onChange={(event)=> setPhone(event.target.value)} />
+                    </Grid>
+                </Grid>
+                <Grid item>
+                <TextField multiline rows={5} id='message' value={message} onChange={(event)=> setMessage(event.target.value)} />
+               <Grid>
+                   <Button variant='contained'>Send Message</Button>
+               </Grid>
+                </Grid>
             </Grid>
         
             <Grid item container className={classes.background} lg={9}></Grid>
