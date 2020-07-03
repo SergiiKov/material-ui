@@ -33,9 +33,48 @@ const useStyles = makeStyles((theme) => ({
     const theme= useTheme(); 
 
     const [name, setName] = useState('');
+
     const [email, setEmail] = useState('');
+    const [emailHelper, setEmailHelper] = useState('');
+
     const [phone, setPhone] = useState('');
+    const [phoneHelper, setPhoneHelper] = useState('');
+
     const [message,setMessage] = useState('');
+
+    const onChange = event => {
+        let valid;
+    
+        switch (event.target.id) {
+          case "email":
+            setEmail(event.target.value);
+            valid = /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(
+              event.target.value
+            );
+    
+            if (!valid) {
+              setEmailHelper("Invalid email");
+            } else {
+              setEmailHelper("");
+            }
+            break;
+          case "phone":
+            setPhone(event.target.value);
+            valid = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
+              event.target.value
+            );
+    
+            if (!valid) {
+              setPhoneHelper("Invalid phone");
+            } else {
+              setPhoneHelper("");
+            }
+            break;
+          default:
+            break;
+        }
+      };
+
   
     return (
         <Grid container direction='row'>
@@ -62,13 +101,17 @@ const useStyles = makeStyles((theme) => ({
                 </Grid>
                 <Grid item container>
                     <Grid item>
-                        <TextField label='Name' id='name' value={name} onChange={(event)=> setName(event.target.value)} />
+                        <TextField 
+                        label='Name' 
+                        id='name' 
+                        value={name} 
+                        onChange={(event)=> setName(event.target.value)} />
                     </Grid>
                     <Grid item>
-                    <TextField label='Email' id='email' value={email} onChange={(event)=> setEmail(event.target.value)} />
+                    <TextField label='Email' id='email' error={emailHelper.length !==0} helperText={emailHelper} value={email} onChange={onChange} />
                     </Grid>
                     <Grid item>
-                    <TextField label='Phone' id='phone' value={phone} onChange={(event)=> setPhone(event.target.value)} />
+                    <TextField label='Phone' id='phone' error={phoneHelper.length !==0} helperText={phoneHelper} value={phone} onChange={onChange} />
                     </Grid>
                 </Grid>
                 <Grid item>
